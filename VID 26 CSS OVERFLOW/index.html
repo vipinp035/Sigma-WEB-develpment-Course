@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Overflow</title>
+</head>
+<style>
+    .box{
+        /* width: 30vw; */
+        /* height: 10vh; */
+        /* height: 40vh; */
+        /* in overflow:scroll  scroll bar is seeing everytime even if content is not overflowing */
+        /* overflow: scroll; */
+        /* in overflow:auto    scroll bar is not seeing when content is not overflowing */
+        /* overflow: auto; */
+        /* overflow: hidden; */
+        /* overflow: scroll; */
+        /* overflow: clip;
+        white-space: nowrap;
+        text-overflow: ellipsis; */
+        width: 30vw;
+        height: 30vh;
+        overflow: auto;
+        /* overflow: hidden auto; */
+        /* overflow: auto hidden; */
+        /* overflow: scroll hidden; */
+        overflow: scroll scroll;
+        /* overflow-x: hidden;
+        overflow-y: scroll; */
+        /* overflow-x: hidden;
+        overflow-y: hidden; */
+
+
+        border: 2px solid red;
+    }
+</style>
+<body>
+    <div class="box">
+        I am a good boy and i love to write Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis est incidunt similique, vel debitis minima animi quia. Eius perspiciatis nam ab totam cum eaque mollitia fuga fugit, quod aliquid, ex eveniet tenetur, amet enim? Ut velit veritatis explicabo debitis officia aspernatur neque repellendus nihil sapiente?
+        If "Item 1" was created or updated through a data import, double-check the import file. Ensure that the currency code specified in the import file matches the ISO code for USD.Enable and review debug logs for the user who encounters the error. The logs might provide more details about what's causing the Currency ISO Code error.
+    </div>
+    
+</body>
+</html>

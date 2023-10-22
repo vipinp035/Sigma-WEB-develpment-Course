@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css specificity and cascade</title>
+    <style>
+        /* the specificity of this is 1 */
+        h1{
+            color: rgb(28, 158, 23);
+        }
+         /* the specificity of this is 10 */
+        .yellow{
+            color: yellow;
+        }
+        .cred{
+            color: red;
+            
+        }
+        .cpurple{
+            color: purple;
+        }
+        /* the specificity of this is 1+10=11 */
+        h1.yellow{
+            color: yellow;
+        }
+        /* this is a example of attribute selector and its specificty is 10 */
+        [data-x=a]{
+            background-color: rgb(255, 0, 191);
+        }
+        /* the specificity of this is 1+10+10+10+10=41 */
+        a.harryclass.rohan-class[href]:hover{
+            color:blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1  class="yellow cred cpurple" data-x="a">CSS Specificity</h1>
+        <!-- <h1 style="color: green;" class="yellow cred cpurple">CSS Specificity</h1> -->
+    </div>
+   
+</body>
+</html>

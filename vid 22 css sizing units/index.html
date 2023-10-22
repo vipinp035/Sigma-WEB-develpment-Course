@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Sizing units</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    html{
+     font-size:12px;
+    }
+    .box{
+        box-sizing: border-box;
+        border: 2px solid black;
+        /* width: 233px; */
+        /* width: 1532px; */
+        /* width: 100vw; */
+        width: 80vw;
+        height: 10vh;
+        margin: auto;
+        background-color: aquamarine;
+    }
+    /* .box2{
+        box-sizing: border-box;
+        border: 2px solid black;
+        width: 233px;
+        width: 1532px;
+        width: 100vw;
+        width: 80vw;
+  
+        margin: auto;
+        background-color: aquamarine;
+        line-height: 7;
+    } */
+    .container{
+        box-sizing: border-box;
+        border: 2px solid black;
+        margin: 23px auto;
+       font-size: 16px;
+        width: 80vw;
+        /* height: 80vh; */
+        min-height: 80vh;
+        font-size: 16px;
+        /* font-size: 18px; */
+        /* margin: auto; */
+        background-color: aquamarine;
+
+    }
+    .container p{
+        /* font-size: 1em; */
+        /* font-size: 1.5em; */
+        /* font-size: 2em; if container is on default size 16px then it will take that times of html size which is in style means 2*12=24px */
+        /* font-size: 2rem;
+        width: 50%;
+        border:2px solid red ; */
+    }
+    .container div{
+        font-size: 2rem;
+        width: 50%;
+        border:2px solid red ;
+
+    }
+    .container div div{
+        border: 2px solid blue;
+        width: 50%;
+    }
+    .mycont{
+        /* background-color: red; */
+        border: 2px solid black;
+        box-sizing: border-box;
+        margin: 23px auto;
+
+        color: rgb(0,0,0);
+        font-size: 22px;
+        /* width: 100vmin; */
+        width: 80vw;
+    }
+</style>
+<body>
+<div class="box">
+    This is a box
+</div>
+<!-- <span class="box2">
+    this is a inline box 2 which do not support centering the element
+</span> -->
+<div class="container">
+    <!-- <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius veniam, voluptates magni necessitatibus vitae obcaecati libero sit aliquid et! Perspiciatis a neque amet, sint quisquam alias soluta iste corrupti quas quia? Aut vel natus quos, omnis, voluptatibus earum quo veritatis, ab iste eveniet assumenda culpa.
+       
+    </p> -->
+    <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius veniam, voluptates magni necessitatibus vitae obcaecati libero sit aliquid et! Perspiciatis a neque amet, sint quisquam alias soluta iste corrupti quas quia? Aut vel natus quos, omnis, voluptatibus earum quo veritatis, ab iste eveniet assumenda culpa.
+        <div>
+
+       
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis quae cupiditate, animi ducimus accusamus ut, dolorem modi eum, corrupti eligendi quos ipsum non?
+    </div>
+    </div>
+    
+    
+<!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident veniam suscipit autem voluptas consequuntur, assumenda voluptatem inventore, cumque cum quasi veritatis consectetur ad, excepturi deserunt sunt sed nostrum. Non explicabo magni dignissimos expedita quae perspiciatis sit, reiciendis labore amet corrupti. Fuga, assumenda, in fugit eligendi non ex velit quidem alias ducimus eum nulla deleniti cum esse. -->
+<!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, officiis corrupti quam debitis officia modi quo ratione nostrum eveniet tempore laborum! Eligendi provident recusandae aliquam officiis necessitatibus, ad odit, nobis totam, ullam assumenda minima ipsam qui soluta placeat consequatur earum et quod voluptates quos a saepe molestias? Magni eius dolores porro velit voluptas minima aspernatur officia facere adipisci est explicabo dolore, distinctio dolorem temporibus voluptatum odit tenetur nisi sed, odio ex! Impedit, velit veniam veritatis exercitationem explicabo soluta aut autem consectetur minima, minus nisi, ratione mollitia voluptates alias dolores? Earum consequatur explicabo enim! Tempore voluptas autem ullam, hic omnis culpa, atque aliquid quaerat in ipsum aliquam vel tenetur illo error pariatur, excepturi molestias magnam. Culpa eveniet veritatis corrupti sequi minima quo ducimus neque necessitatibus soluta doloribus, iste doloremque ipsam alias. Aliquid, quo culpa? Nulla repellendus officia omnis voluptatibus sint quasi itaque ducimus dicta atque, assumenda dolorum unde sit doloremque voluptas adipisci quis ea dolores neque iste illum ipsa fugit dolore! Cum recusandae accusantium nam. Placeat cum aspernatur corrupti voluptatum. Quisquam dolorem, pariatur impedit vel adipisci vero excepturi voluptatum ratione hic quasi perferendis vitae eaque, ut cum ea laborum, cumque incidunt dolore nisi voluptates atque tenetur minima. Doloribus vel aperiam dolorum illum non adipisci delectus dolores. Molestiae fuga natus ratione quisquam nobis nisi aut aliquam voluptatum. Eaque unde facere sit quibusdam. Nam, debitis ullam! Doloremque ad praesentium, saepe cupiditate quisquam laboriosam nobis! Soluta iusto ratione beatae eius iste obcaecati nostrum a hic repudiandae nesciunt, magni laudantium quos libero, sapiente commodi cupiditate repellat corporis dicta veniam sint porro? Fugiat ipsa repudiandae commodi! Asperiores, repellendus libero adipisci atque expedita sunt minima est! Vitae, nemo laboriosam eius aperiam exercitationem natus praesentium! Veniam numquam necessitatibus laborum totam, odit vitae culpa hic perspiciatis repellendus? Officiis consectetur earum natus temporibus suscipit commodi eos rerum similique numquam. Neque commodi, ullam consectetur consequatur eos explicabo, repellat dolorem quidem nisi expedita blanditiis doloribus asperiores porro nihil. Voluptates, porro. Sequi at temporibus, sunt labore blanditiis ipsam enim necessitatibus vero nobis perferendis quidem aut distinctio consequuntur, consequatur omnis. Possimus, tempora. Itaque voluptatem optio natus quo ipsum odio quis inventore corrupti. Et doloribus maxime vero cumque adipisci, voluptas dolor ducimus officia, voluptatem ad sequi quaerat blanditiis corporis eaque placeat alias quisquam molestiae commodi! Esse voluptate unde velit, at enim aliquam architecto non dolores fuga voluptatum blanditiis ipsam sunt saepe animi consequuntur pariatur quam, tempora amet neque, consectetur quaerat! Pariatur adipisci cupiditate architecto non earum dolores reprehenderit consequatur dignissimos aliquid ipsa eveniet, sed consequuntur et, laboriosam nam totam aliquam saepe numquam placeat culpa commodi quae quibusdam. Ratione, modi sed. Explicabo facere ipsam aut nemo similique magni quod minus inventore porro. Praesentium, iure eligendi sunt a atque fuga possimus vero fugit illum tempore! Perferendis, possimus maxime! Blanditiis asperiores dolor eveniet! Porro esse omnis nobis consectetur architecto sed molestias reprehenderit quis voluptatum animi. Vel quisquam sapiente nostrum impedit ab est, necessitatibus repudiandae earum quibusdam quasi velit veritatis, consequatur, voluptatibus ea. Quod nulla fugiat aperiam et doloribus consequatur deleniti, labore delectus praesentium laboriosam nisi rerum beatae voluptatibus velit ipsum suscipit necessitatibus dicta saepe unde! Minima molestias, aliquid quia nam repudiandae, neque assumenda deserunt dolorum autem, animi fugit blanditiis soluta possimus eveniet. Quaerat maiores numquam, illo recusandae blanditiis adipisci! Quos, cumque blanditiis repellat incidunt dolores omnis exercitationem ipsam asperiores laborum repudiandae excepturi. Necessitatibus minima dolore beatae veniam similique itaque, eos at nemo autem molestias cumque, eligendi mollitia delectus magnam id ratione! Quas inventore tempora optio quidem enim, molestias reprehenderit perspiciatis illo voluptate quod nobis quae iste labore laborum incidunt, consequatur itaque nostrum. Ab hic inventore rerum fugiat. Harum ex sequi hic doloremque temporibus doloribus tempore delectus, ducimus dolores omnis veniam odit numquam placeat eius, mollitia officia? Quisquam assumenda, porro nisi laudantium nobis voluptas aliquid doloribus. Error aperiam pariatur quia, quibusdam, ullam molestias consectetur magni ea veniam nobis rem. Laboriosam veniam quo velit nisi amet optio rerum tempora libero, ad, aut culpa ducimus voluptatum hic dicta vel. Ducimus repellat et omnis, adipisci aut neque, eos corrupti sunt sapiente sed perspiciatis vitae saepe consequatur excepturi fugiat! Quaerat molestias illum iusto laudantium delectus ad nulla excepturi iure error! Tempore, placeat nulla? Natus nesciunt debitis commodi. Optio eveniet, sint aspernatur alias dignissimos necessitatibus. Veritatis, nemo nulla. Quis quasi tempore fuga ipsa, totam aliquid enim cumque. Laudantium provident quia vero laboriosam corrupti illo corporis nam mollitia, quibusdam tenetur inventore? Quibusdam, ratione nisi laboriosam aspernatur incidunt cupiditate odio mollitia. Illum quasi laudantium possimus, vel dolor nesciunt, quod veritatis labore repudiandae similique incidunt sequi. Blanditiis porro dolorum nesciunt laboriosam ipsum illum libero, aspernatur necessitatibus eaque aliquam tempore enim ducimus esse nostrum. Quos fugit facilis aut at sapiente dolor velit ipsum totam iste, et itaque repellat, culpa autem? Eum obcaecati suscipit iste cumque magni porro quis expedita velit consequatur minus corrupti modi delectus recusandae facilis natus quisquam voluptates assumenda iusto numquam accusantium eius, tempora sequi. Voluptatum at reiciendis assumenda est! Id est sequi dolorum harum, sed officia quod ratione reiciendis error explicabo dolores cupiditate repudiandae beatae, maxime tempora ducimus quis! Voluptates accusantium repudiandae, iste vero nostrum magni vel autem voluptas sunt labore natus saepe soluta obcaecati delectus dolorem reprehenderit fugit mollitia tempore quia quaerat odit dicta dolorum. Blanditiis, laboriosam? Corporis odit dolor esse commodi sit aliquam laudantium quibusdam qui, in excepturi beatae sint expedita laborum aperiam rerum alias mollitia! Nam recusandae, odio id eius tempore sunt illo sit eligendi officiis, corrupti repudiandae praesentium harum quo tenetur veniam, alias dolore error veritatis libero ad soluta! Quod, aut omnis impedit sint cumque, veritatis magni ullam similique obcaecati tempore voluptas ea pariatur quas, nam ducimus? Natus inventore unde doloribus eum doloremque, aut laboriosam? Veniam illum dolor minus, ullam in perspiciatis sed blanditiis vero non minima distinctio quo perferendis dolorum aspernatur dolorem nostrum esse optio eligendi fuga ipsum debitis. Quibusdam, molestiae? Cumque laudantium corporis nulla quaerat officia laboriosam accusantium sed quibusdam et veniam natus itaque assumenda rerum ullam, ipsa magni id temporibus atque? Cum animi et vitae non numquam atque accusamus id, maiores aliquam enim aut, cumque molestias incidunt placeat, dolore consequatur pariatur rem officiis dolores distinctio modi ipsum. -->
+</div>
+<div class="mycont">
+    I am another container
+
+</div>
+</body>
+</html>
