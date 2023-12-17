@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.jpg" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap"
+      rel="stylesheet"
+    />
+    <title>Download UltraEdit text editor for windows</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      nav {
+        /* border: 2px solid red; */
+        display: flex;
+        /* justify-content: center;
+         */
+        margin-left: 147px;
+        margin-top: 9px;
+      }
+      ul li{
+        list-style: none;
+      }
+      .container {
+        display: flex;
+        padding-left: 503px;
+        padding-top: 23px;
+        /* font-family: "Baloo Bhai 2", sans-serif; */
+        font-family: "Segoe UI";
+        color: #222222;
+      }
+      .item {
+        padding-left: 25px;
+        font-size: 16px;
+        cursor: pointer;
+      
+      }
+      .logo{
+        cursor: pointer;
+      }
+      .container1{
+            border: 2px solid black;
+            display: grid;
+            width: 80vw;
+            height: 100vh; 
+            row-gap: 10px;
+            column-gap: 34px;
+            grid-template-columns: repeat(4,80px);
+            grid-template-rows: repeat(2,80px);
+            align-content:center ;
+            justify-items: center;
+            place-content: center;
+            align-items: center;
+        }
+        .item1{
+            border:2px solid red;
+            height: 55px;
+            width: 55px;
+        }
+           
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <!-- <img src="https://www.ultraedit.com/wp-content/uploads/2023/01/Dark-logo.png" alt="company name" width="203px"> -->
+          <img src="comp.jpg" alt="company name" width="203px"  ";/>
+        </div>
+
+        <ul class="container"> 
+          <li class="item" >
+            Products
+            <img src="down.jpg" alt="down" />
+          </li>
+          <li class="item">
+            Pricing
+            <img src="down.jpg" alt="down" />
+          </li>
+
+          <li class="item">
+            Resources
+            <img src="down.jpg" alt="down" />
+          </li>
+          <li class="item">
+            About us
+            <img src="down.jpg" alt="down" />
+          </li>
+          <li class="item">
+            <img src="transl.jpg" alt="translator" width="100px" />
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+
+    <!-- <div>
+      <a href="ue_english.exe">Download ultraedit</a>
+    </div> -->
+    <div class="container1">
+      <div class="item1 item-1">English</div>
+        <div class="item1">Deutch</div>
+        <div class="item1">Italiano</div>
+        <div class="item1 item-4">Español</div>
+        <div class="item1">français</div>
+        <div class="item1">Português brasileiro</div>
+        <div class="item1">日本</div>
+        <div class="item1">한국어</div>
+        <div class="item1">中国</div>
+        <div class="item1">中國</div>
+  </div>
+    </main>
+  </body>
+</html>

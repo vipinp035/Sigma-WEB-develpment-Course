@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS FLEXBOX</title>
+    <style>
+        .container{
+            border: 2px solid red;
+            display: flex;
+            height: 80vh;
+            /* for horizontal(only if flex direction is row) moving content using justify content and for vertical(only ifflex direction column) fo moving content using justify content */
+            /* justify-content: center; */
+            /* justify-content:flex-end;
+          justify-content: flex-start;
+          justify-content: right;
+          justify-content: space-around;
+          justify-content: space-between;
+          justify-content: space-evenly ; */
+            /* for vertical move of content align items used for one line */
+            align-items: center;
+            /* flex-wrap: wrap; */
+            /* flex-wrap: wrap-reverse; */
+            /* flex-wrap: nowrap; */
+            /* align-items:flex-start ;
+            align-items: flex-end;
+            align-items: center ;
+            align-items: baseline; */
+            /* flex-direction: column; */
+            /* flex-direction: column-reverse; */
+            /* flex-direction: row; */
+            /* flex-direction: row-reverse; */
+            /* if content is more than one line due to wraps of items then we use align content in place of align items */
+            /* align-content: center; */
+            /* align-content: flex-start;
+            align-content: flex-end; */
+            /* flex-flow: row wrap; */
+            /* gap: 30px; */
+            /* row-gap: 40px;
+            column-gap: 10px; */
+            gap:40px 10px;
+          
+
+        }
+        .item{
+            /* flex-grow:1; */
+            border: 2px solid black;
+            height: 92px;
+            width: 92px;
+            background-color:blueviolet ;
+            /* margin: 4px; */
+           
+        }
+        .order-1{
+            order:1;
+        }
+        .order-2{
+            order:2;
+        }
+        .order-3{
+            order:3;
+        }
+        .order-28{
+            order:28;
+        }
+        .item1{
+            /* flex-grow: 2; */
+            flex-shrink:2;   
+            align-self: flex-end;          
+        }
+        .item2{
+            align-self: flex-start;
+        }
+
+
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="item item1 order-28 ">1</div>
+            <div class="item item2 ">2</div>
+            <div class="item">3</div>
+            <div class="item order-1">4</div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <!-- <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item order-1">66</div>
+            <div class="item"></div>
+            <div class="item"></div> -->
+            <!-- <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+           -->
+        </div>
+        
+    </main>
+    
+</body>
+</html>

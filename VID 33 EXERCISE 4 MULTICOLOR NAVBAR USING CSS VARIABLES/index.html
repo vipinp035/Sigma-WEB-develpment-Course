@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multicolor Navbar</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Poppins:ital,wght@0,200;0,400;1,100&display=swap');
+        </style>
+    <style>
+*{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+
+        }
+        :root{
+            --color:rgb(59, 59, 147);
+            --seccolor:rgb(255, 0, 0);/* WE CAN ALSO GIVE Nav{background color:red}*/
+            --defpad:10px;
+            --right-padding: 81px; 
+            --left-padding: 81px;
+            --custom-cursor: pointer; 
+            --hover-color: red;
+             }
+        ul{
+            display: flex;
+            /* display: inline; we can also give display inline instead of display flex but some other CSS property should also change*/
+            background-color:var(--seccolor) ;
+
+          }
+        ul li{
+            list-style: none;
+            padding: var(--defpad);
+            padding-right: var(--right-padding);
+            padding-left: var(--left-padding);
+            cursor: var(--custom-cursor);
+            font-weight: bolder;
+            color: white;
+           
+            
+        }
+        ul li:hover{
+                  color: var(--hover-color);
+        }
+      
+        ul li:first-child{
+            --color:pink;
+            background-color:var(--color);
+           
+          
+        }
+        ul li:nth-child(2){
+            --color:rgb(172, 240, 14);
+            background-color:var(--color);
+           
+        }
+        ul li:nth-child(3){
+            --color:rgb(215, 90, 11);
+            background-color:var(--color);
+        }
+        ul li:nth-child(4){
+            --color:rgb(10, 236, 194);
+            background-color:var(--color);
+        }
+        ul li:nth-child(5){
+            --color:rgb(62, 95, 203);
+            background-color:var(--color);
+
+        }
+        ul li:nth-child(6){
+            --color:rgb(194, 52, 220);
+            background-color:var(--color);
+        }
+        ul li:nth-child(7){
+            --color:rgb(206, 58, 82);
+            background-color:var(--color);
+        }
+
+  </style>
+</head>
+<body>
+    <div class="nav">
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Services</li>
+            <li>Products</li>
+            <li>New Arrivals</li>
+            <li>Contact us</li>
+            <li>Sign Up</li>
+        </ul>
+    
+</body>
+</html>

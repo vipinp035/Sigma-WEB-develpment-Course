@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Design</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+    </style>
+    <style>
+      :root {
+        --primary-color: #fa1e0acc;
+        /* --primary-color:pink; */
+        --text-color: rgb(36, 26, 26);
+        --secondary-color: #a8a1aecc;
+      }
+
+      body {
+        background-color: var(--secondary-color);
+        align-items: center;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      header {
+       
+        position: sticky;
+        top: 0;
+      }
+
+      .navbar {
+        background-color: var(--primary-color);
+        padding: 12px 0;
+       
+      }
+
+      ul li {
+        list-style: none;
+        display: inline;
+        padding: 23px;
+        font-weight: bolder;
+      }
+
+      ul li a {
+        color: var(--text-color);
+        text-decoration: none;
+      }
+      .boxes {
+        border: 2px solid green;
+        background-color: green;
+        display: flex;
+        justify-content: center;
+        /* height: 200px; */
+        margin: 10px 20px;
+        height: 500px;
+
+        /* width: 1533px;
+        height: 85vh; */
+      }
+      .box {
+        border: 2px solid black;
+        width: 30vw;
+        height: 400px;
+        margin: 50px;
+        padding: 5px;
+      }
+      .box1 {
+        border: 2px solid white;
+        background-color: palevioletred;
+      }
+      .box2 {
+        border: 2px solid white;
+        background-color: rgb(11, 165, 216);
+      }
+      .desc {
+        font-size: 23px;
+        font-weight: bolder;
+        color: red;
+        border: 2px solid white;
+        border-radius: 30px;
+        height: 100px;
+        /* margin: 10px 20px; */
+        margin: 10px 355px;
+        text-align: center;
+        margin-top: 50px;
+
+        padding-top: 30px;
+      }
+      .logo {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+      }
+      img {
+        border-radius: 60px;
+      }
+
+      .footer {
+        border: 2px yellow;
+
+        background-color: #333;
+        margin-top: 70px;
+        text-align: center;
+        padding: 9px;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/">About</a></li>
+          <li><a href="/">Services</a></li>
+          <li><a href="/">Contact Us</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="boxes">
+      <div class="box box1"></div>
+      <div class="box box2"></div>
+    </div>
+
+    <div class="desc">
+      Welcome to this Sigma Web Develoment Express
+      <div>
+        <img
+          src="express.jpg"
+          alt="express train"
+          width="50px"
+          margin-bottom="5px"
+        />
+      </div>
+    </div>
+
+    <div class="logo">
+      <img src="logo.jpg" width="80px" alt="web development logo" class="src" />
+    </div>
+    <div class="footer">
+      <p>&copy; 2023 Sigma Web Development . All rights reserved.</p>
+    </div>
+  </body>
+</html>

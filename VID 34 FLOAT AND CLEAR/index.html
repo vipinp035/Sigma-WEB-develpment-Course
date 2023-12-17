@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Float and Clear</title>
+    <style>
+        /* float and clear were used earlier to make website but now for modern wesite we can and should use flexbox ,grid and others  */
+        img{
+            float: left;
+            /* float: right; */
+        }
+        .cards{
+            border: 2px solid black;
+            display:flow-root;
+        }
+        .card{
+            border: 2px solid red;
+        }
+        .card:nth-child(3){
+            background-color: aqua;
+            /* clear: right; */
+            /* clear: left; */
+            clear: both;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="cards">
+        <img src="https://c4.wallpaperflare.com/wallpaper/487/616/34/high-saturation-photography-of-snow-coated-mountain-peak-wallpaper-preview.jpg" width="230" alt="">
+    <div class="card">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, nulla odit. Nihil unde cumque officia, quos distinctio voluptate dolorem vitae! Modi porro nam, accusamus sapiente ducimus, natus error eum, culpa inventore voluptatibus voluptatum officiis!</div>
+    <div class="card">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est similique eius officia at velit reprehenderit dolorem minima earum, accusantium nulla! Eum minus fugiat velit consectetur veniam aliquid neque tenetur! Nesciunt nihil vero, magnam et laboriosam cum labore voluptate doloremque eveniet nisi, consectetur ab aut, earum atque temporibus enim maiores ex deserunt blanditiis quam aliquid est quibusdam animi ullam. Perspiciatis eos fugit, quod ex rerum quis officiis aliquid accusantium mollitia! Iste molestias dignissimos repellendus veniam voluptate architecto mollitia culpa, suscipit, ipsa quas reiciendis at corrupti nulla provident, vel velit consequatur! Molestiae earum optio quis architecto praesentium quidem, reprehenderit necessitatibus, rerum a ratione nihil fugiat aspernatur tempora recusandae, at perferendis modi nostrum consequuntur? Ullam praesentium quisquam dolores, natus veniam quibusdam consectetur rerum accusamus, dignissimos quam, et ex saepe delectus id non molestias. Adipisci at dolores hic corrupti cumque consectetur reiciendis magni? At assumenda quia quod vitae! Dignissimos unde nemo praesentium at laudantium veritatis beatae, iure tenetur quis cupiditate pariatur veniam iusto corrupti molestias repellendus, vitae et eveniet dolores. Repellat doloremque deserunt culpa iste dolorem obcaecati animi aut similique vitae eveniet cum nihil necessitatibus neque saepe nulla ab, eius harum. Corrupti pariatur adipisci, suscipit eum neque ducimus fugiat aspernatur aliquam possimus, ipsum architecto alias voluptatum consequatur ipsam, nam sequi omnis dignissimos voluptatem harum fuga saepe modi ea? Itaque, placeat recusandae optio labore accusamus eius delectus fugit deleniti accusantium voluptas officia saepe officiis, voluptatibus laboriosam cumque vitae nemo?</div>
+    <div class="card">Card 3</div>
+    
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Variables</title>
+    <style>
+        /* css variables */
+        :root{
+            --color:rgb(59, 59, 147);
+            --seccolor:rgb(255, 0, 0);
+            --defpad:23px;
+            --defop:0.6;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .nav{
+            background-color: var(--color);
+        }
+        ul{
+            display: flex;
+        }
+        ul li{
+            /* opacity: 0.3; */
+            opacity: var(--defop);
+            list-style: none;
+            /* padding: 15px; */
+            padding: var(--defpad);
+            border:4px solid var(--seccolor);
+        }
+
+        ul li:first-child{
+            --color:pink;
+            background-color:var(--color);
+          
+            /* background-color:var(--color,blue); it is used when --color variable is not given anywhere and used then another color that is blue  can be given to give something color property */
+        }
+        ul li:last-child{
+            --secolor:rgb(255, 204, 0);
+            background-color:var(--secolor);
+        }
+.container{
+    background-color: var(--seccolor);
+    margin-top: 8px;
+}
+    </style>
+</head>
+<body>
+<div class="nav">
+    <ul>
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact us</li>
+    </ul>
+</div>
+<div class="container">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus atque impedit voluptatum maiores! Vero explicabo, ipsum voluptatem consequatur alias inventore dicta unde sequi esse eligendi sit sunt quaerat recusandae quae. Odio enim sit tempora quae architecto deserunt ratione necessitatibus quisquam cum. Dolor ratione a reprehenderit!
+</div>
+    
+</body>
+</html>

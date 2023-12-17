@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More on CSS sELECTORS</title>
+    <style>
+/* .box:first-child{
+    background-color: red;
+} */
+/* .box::first-line{
+    color:red;
+} */
+/* .boxes *{
+    color:blueviolet ;
+    border: 2px solid black;
+
+} */
+/* p,a,.box,[data-color="primary"]{
+    margin-top: 45px;
+    padding-top: 40px;
+} */
+/* .box:nth-child(even){
+    background-color: blue;
+} */
+/* .box:nth-child(odd){
+    background-color: rgb(8, 201, 2);
+} */
+/* .box:last-child{
+    background-color: aqua;
+} */
+/* .box:nth-last-child(1){
+    background-color: brown;
+} */
+/* .box:nth-last-child(2){
+    background-color: brown;
+} */
+.boxes::before{
+content: "VIPIN IS A GOOD BOY";
+color: blueviolet;
+}
+.boxes::after{
+content: "VIPIN IS A BAD BOY";
+color: rgb(226, 131, 43);
+}
+::selection{
+    background-color: black;
+    color: aqua;
+}
+.box::first-letter{
+    color: rgb(42, 165, 46);
+    font-size: larger;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+input::placeholder{
+    color: rgb(60, 60, 130);
+}
+    </style>
+</head> 
+<body>
+    <div class="boxes">
+
+        <!-- <div class="box">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt libero facere illo provident aliquam sunt illum, repudiandae nisi exercitationem tempora quod! Explicabo atque hic quis accusantium ipsa odio minus excepturi laboriosam rerum mollitia. Labore adipisci recusandae nihil repudiandae placeat incidunt. Saepe rerum facere qui dignissimos ullam odit. Delectus amet dolores distinctio vitae excepturi repudiandae saepe natus repellat, assumenda ipsa? Distinctio, earum quasi? Eveniet voluptatum neque non hic dicta. Hic impedit non perferendis, eos, assumenda quidem nihil blanditiis ipsam consectetur maiores, omnis debitis nulla earum a soluta reiciendis id vitae aperiam facere repellat neque numquam! Odit autem a obcaecati quas, pariatur perferendis, at consequatur vitae ad numquam quisquam eligendi voluptatem in. Deleniti natus aperiam quos corrupti ab illum! Voluptatibus, sequi? Dignissimos mollitia aperiam perferendis recusandae sed nemo velit animi commodi eius tenetur minima, nesciunt, assumenda vero dolorum blanditiis eos ducimus rem hic. A laudantium vero praesentium saepe fugit ratione, id suscipit architecto sequi autem temporibus soluta modi iure tempore ullam, velit repudiandae reprehenderit dolore nobis necessitatibus numquam dolorem fuga alias dolorum! Architecto sunt cumque quis tempora dolores commodi sed unde modi doloremque possimus accusantium, aspernatur voluptate expedita eligendi fugit praesentium deleniti dolor non. Modi tempora inventore expedita, harum debitis assumenda ipsum asperiores dolor enim recusandae, itaque quisquam? Quas ad molestias, consectetur unde corrupti tempore numquam. Provident optio sequi amet modi labore cumque, omnis nostrum nobis, ea voluptatum tempora! Et sequi voluptatem maiores quo totam illo!</div> -->
+        <div data-color="primary" class="box">Hey I am a box</div>
+        <div class="box">Hey I am a box</div>
+        <div class="box">Hey I am a box</div>
+        <input type="text" placeholder="Type your name here">
+    </div>
+    
+</body>
+</html>
