@@ -1,0 +1,2317 @@
+Apex Basics & Database 
+1)Get Started with Apex:-
+
+List<String> colors = new List<String>();
+
+
+
+String[] colors = new List<String>();
+
+
+
+
+
+// Create a list and add elements to it in one step
+List<String> colors = new List<String> { 'red', 'green', 'blue' };
+// Add elements to a list after it has been created
+List<String> moreColors = new List<String>();
+moreColors.add('orange');
+moreColors.add('purple');
+
+
+
+
+
+
+
+// Get elements from a list
+String color1 = moreColors.get(0);
+String color2 = moreColors[0];
+System.assertEquals(color1, color2);
+// Iterate over a list to read elements
+for(Integer i=0;i<colors.size();i++) {
+    // Write value to the debug log
+    System.debug(colors[i]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public class EmailManager {
+    // Public method
+    public void sendMail(String address, String subject, String body) {
+        // Create an email message object
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        String[] toAddresses = new String[] {address};
+        mail.setToAddresses(toAddresses);
+        mail.setSubject(subject);
+        mail.setPlainTextBody(body);
+        // Pass this email message to the built-in sendEmail method 
+        // of the Messaging class
+        Messaging.SendEmailResult[] results = Messaging.sendEmail(
+                                 new Messaging.SingleEmailMessage[] { mail });
+        // Call a helper method to inspect the returned results
+        inspectResults(results);
+    }
+    // Helper method
+    private static Boolean inspectResults(Messaging.SendEmailResult[] results) {
+        Boolean sendResult = true;
+        // sendEmail returns an array of result objects.
+        // Iterate through the list to inspect results. 
+        // In this class, the methods send only one email, 
+        // so we should have only one result.
+        for (Messaging.SendEmailResult res : results) {
+            if (res.isSuccess()) {
+                System.debug('Email sent successfully');
+            }
+            else {
+                sendResult = false;
+                System.debug('The following errors occurred: ' + res.getErrors());                 
+            }
+        }
+        return sendResult;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EmailManager em = new EmailManager();
+em.sendMail('Your email address', 'Trailhead Tutorial', '123 body');
+
+
+
+
+
+
+
+
+
+public static void sendMail(String address, String subject, String body) {
+
+
+
+
+
+
+
+
+
+
+
+EmailManager.sendMail('Your email address', 'Trailhead Tutorial', '123 body');
+
+
+
+
+
+
+YOUR CHALLENGE:-
+
+Create an Apex class with a method that returns a list of strings
+Create an Apex class with a method that returns a list of formatted strings. The length of the list is determined by an integer parameter. You can also use an array if you prefer, but these instructions assume you’re using a list.
+The Apex class must be called StringArrayTest and be in the public scope
+The Apex class must have a public static method called generateStringArray
+The generateStringArray method must return a list of strings
+The method must accept an incoming Integer as a parameter, which will be used to determine the number of returned strings
+The method must return a list of strings. Each element in the list must have the format Test n, where n is the index of the current string in the list. For example, if the input is 3, then the output should be ['Test 0', 'Test 1', 'Test 2']. Remember that in Apex, the index position of the first element in a list is always 0.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class StringArrayTst {
+ public static List<String> generateStringArray(Integer n) {
+      List<String> x = new List<String>();
+     for (Integer i = 0; i < n; i++) {
+         x.add('Test ' +i);
+         System.debug(x[i]);
+         
+     }
+     
+     return x;
+   }
+}
+
+
+StringArrayTst.generateStringArray(5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2)Use sObjects:-
+
+Account acct = new Account(Name='Acme');
+
+
+
+
+Account acct = new Account();
+
+
+
+Account acct = new Account(Name='Acme', Phone='(415)555-1212', NumberOfEmployees=100);
+
+
+
+Account acct = new Account();
+acct.Name = 'Acme';
+acct.Phone = '(415)555-1212';
+acct.NumberOfEmployees = 100;
+
+
+
+
+sObject sobj1 = new Account(Name='Trailhead');
+sObject sobj2 = new Book__c(Name='Workbook 1');
+
+
+
+
+
+
+// Cast a generic sObject to an Account
+Account acct = (Account)myGenericSObject;
+// Now, you can use the dot notation to access fields on Account
+String name = acct.Name;
+String phone = acct.Phone;
+
+
+
+
+
+
+3)Manipulate Records with DML:-
+
+// Create the account sObject 
+Account acct = new Account(Name='Acme', Phone='(415)555-1212', NumberOfEmployees=100);
+// Insert the account by using DML
+insert acct;
+
+
+
+
+DML Statements
+
+The following DML statements are available.
+
+insert
+update
+upsert
+delete
+undelete
+merge
+
+
+
+
+
+// Create the account sObject 
+Account acct = new Account(Name='Acme', Phone='(415)555-1212', NumberOfEmployees=100);
+// Insert the account by using DML
+insert acct;
+// Get the new ID on the inserted sObject argument
+ID acctID = acct.Id;
+// Display this ID in the debug log
+System.debug('ID = ' + acctID);
+// Debug log result (the ID will be different in your case)
+// DEBUG|ID = 001D000000JmKkeIAF
+
+
+
+
+
+
+
+
+
+
+// Create a list of contacts
+List<Contact> conList = new List<Contact> {
+    new Contact(FirstName='Joe',LastName='Smith',Department='Finance'),
+        new Contact(FirstName='Kathy',LastName='Smith',Department='Technology'),
+        new Contact(FirstName='Caroline',LastName='Roth',Department='Finance'),
+        new Contact(FirstName='Kim',LastName='Shain',Department='Education')};
+// Bulk insert all contacts with one DML call
+insert conList;
+// List to hold the new contacts to update
+List<Contact> listToUpdate = new List<Contact>();
+// Iterate through the list and add a title only
+//   if the department is Finance
+for(Contact con : conList) {
+    if (con.Department == 'Finance') {
+        con.Title = 'Financial analyst';
+        // Add updated contact sObject to the list.
+        listToUpdate.add(con);
+    }
+}
+// Bulk update all contacts with one DML call
+update listToUpdate;
+
+
+
+
+
+
+Upsert Syntax
+
+upsert sObject | sObject[]
+
+upsert sObject | sObject[] field
+
+
+
+upsert sObjectList Account.Fields.MyExternalId;
+
+
+
+
+
+
+
+
+
+
+// Insert the Josh contact
+Contact josh = new Contact(FirstName='Josh',LastName='Kaplan',Department='Finance');       
+insert josh;
+// Josh's record has been inserted
+//   so the variable josh has now an ID
+//   which will be used to match the records by upsert
+josh.Description = 'Josh\'s record has been updated by the upsert operation.';
+// Create the Kathy contact, but don't persist it in the database
+Contact kathy = new Contact(FirstName='Kathy',LastName='Brown',Department='Technology');
+// List to hold the new contacts to upsert
+List<Contact> contacts = new List<Contact> { josh, kathy };
+// Call upsert
+upsert contacts;
+// Result: Josh is updated and Kathy is created.
+
+
+
+
+
+
+
+
+
+
+
+Contact jane = new Contact(FirstName='Jane',
+                         LastName='Smith',
+                         Email='jane.smith@example.com',
+                         Description='Contact of the day');
+insert jane;
+// 1. Upsert using an idLookup field
+// Create a second sObject variable.
+// This variable doesn’t have any ID set.
+Contact jane2 = new Contact(FirstName='Jane',
+                         LastName='Smith',  
+                         Email='jane.smith@example.com',
+                         Description='Prefers to be contacted by email.');
+// Upsert the contact by using the idLookup field for matching.
+upsert jane2 Contact.fields.Email;
+// Verify that the contact has been updated
+System.assertEquals('Prefers to be contacted by email.',
+                   [SELECT Description FROM Contact WHERE Id=:jane.Id].Description);
+
+
+
+
+
+
+
+
+
+Contact[] contactsDel = [SELECT Id FROM Contact WHERE LastName='Smith']; 
+delete contactsDel;
+
+
+
+
+
+
+try {
+    // This causes an exception because 
+    //   the required Name field is not provided.
+    Account acct = new Account();
+    // Insert the account 
+    insert acct;
+} catch (DmlException e) {
+    System.debug('A DML exception has occurred: ' +
+                e.getMessage());
+}
+
+
+
+
+
+
+
+
+
+
+Database Methods
+Apex contains the built-in Database class, which provides methods that perform DML operations and mirror the DML statement counterparts.
+These Database methods are static and are called on the class name.
+
+Database.insert()
+Database.update()
+Database.upsert()
+Database.delete()
+Database.undelete()
+Database.merge()
+
+
+
+
+
+
+
+
+
+Database.insert(recordList, false);
+
+
+Database.SaveResult[] results = Database.insert(recordList, false);
+
+
+
+Database.insert(recordList);
+
+
+Database.insert(recordList, true);
+
+
+
+
+
+
+
+
+// Create a list of contacts
+List<Contact> conList = new List<Contact> {
+        new Contact(FirstName='Joe',LastName='Smith',Department='Finance'),
+        new Contact(FirstName='Kathy',LastName='Smith',Department='Technology'),
+        new Contact(FirstName='Caroline',LastName='Roth',Department='Finance'),
+        new Contact()};
+// Bulk insert all contacts with one DML call
+Database.SaveResult[] srList = Database.insert(conList, false);
+// Iterate through each returned result
+for (Database.SaveResult sr : srList) {
+    if (sr.isSuccess()) {
+        // Operation was successful, so get the ID of the record that was processed
+        System.debug('Successfully inserted contact. Contact ID: ' + sr.getId());
+    } else {
+        // Operation failed, so get all errors
+        for(Database.Error err : sr.getErrors()) {
+            System.debug('The following error has occurred.');
+            System.debug(err.getStatusCode() + ': ' + err.getMessage());
+            System.debug('Contact fields that affected this error: ' + err.getFields());
+	 }
+    }
+}
+
+
+
+
+
+Account acct = new Account(Name='SFDC Account');
+insert acct;
+// Once the account is inserted, the sObject will be 
+// populated with an ID.
+// Get this ID.
+ID acctID = acct.ID;
+// Add a contact to this account.
+Contact mario = new Contact(
+    FirstName='Mario',
+    LastName='Ruiz',
+    Phone='415.555.1212',
+    AccountId=acctID);
+insert mario;
+
+
+
+
+
+
+
+
+
+
+// Query for the contact, which has been associated with an account.
+Contact queriedContact = [SELECT Account.Name 
+                          FROM Contact 
+                          WHERE FirstName = 'Mario' AND LastName='Ruiz'
+                          LIMIT 1];
+// Update the contact's phone number
+queriedContact.Phone = '(415)555-1213';
+// Update the related account industry
+queriedContact.Account.Industry = 'Technology';
+// Make two separate calls 
+// 1. This call is to update the contact's phone.
+update queriedContact;
+// 2. This call is to update the related account's Industry field.
+update queriedContact.Account; 
+
+
+
+
+
+
+
+
+
+
+
+Account[] queriedAccounts = [SELECT Id FROM Account WHERE Name='SFDC Account'];
+delete queriedAccounts;
+
+
+
+
+
+
+Challenge:-
+
+
+Create a method for inserting accounts.
+To pass this challenge, create an Apex class that inserts a new account named after an incoming parameter. If the account is successfully inserted, the method should return the account record. If a DML exception occurs, the method should return null.
+The Apex class must be called AccountHandler and be in the public scope
+The Apex class must have a public static method called insertNewAccount
+The method must accept an incoming string as a parameter, which will be used to create the Account name
+The method must insert the account into the system and then return the record
+The method must also accept an empty string, catch the failed DML and then return null
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class AccountHandler {
+    public static Account insertNewAccount(String Accname){
+         Account accnt = new Account(Name=Accname);
+            
+       
+        try{
+             insert accnt;
+            
+        }
+        catch(DmlException e){
+            return Null;
+            
+        }
+       return accnt;
+        
+}
+
+}
+
+AccountHandler.insertNewAccount('Vipinintelligent')
+
+AccountHandler.insertNewAccount('')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4)Write SOQL Queries:-
+
+Account[] accts = [SELECT Name,Phone FROM Account];
+
+
+
+// Add account and related contact
+Account acct = new Account(
+    Name='SFDC Computing',
+    Phone='(415)555-1212',
+    NumberOfEmployees=50,
+    BillingCity='San Francisco');
+insert acct;
+// Once the account is inserted, the sObject will be 
+// populated with an ID.
+// Get this ID.
+ID acctID = acct.ID;
+// Add a contact to this account.
+Contact con = new Contact(
+    FirstName='Carol',
+    LastName='Ruiz',
+    Phone='(415)555-1212',
+    Department='Wingo',
+    AccountId=acctID);
+insert con;
+// Add account with no contact
+Account acct2 = new Account(
+    Name='The SFDC Query Man',
+    Phone='(310)555-1213',
+    NumberOfEmployees=50,
+    BillingCity='Los Angeles',
+    Description='Expert in wing technologies.');
+insert acct2;
+
+
+
+
+
+
+
+
+
+SELECT Name,Phone FROM Account
+
+
+SELECT fields FROM ObjectName [WHERE Condition]
+
+
+SELECT Name,Phone FROM Account
+
+SELECT Id FROM Account
+
+
+ SELECT Id,Phone FROM Account and SELECT Phone FROM Account are equivalent statements.
+
+
+ Unlike other SQL languages, you can’t specify * for all fields.
+
+
+
+SELECT Name,Phone FROM Account WHERE Name='SFDC Computing'
+
+
+SELECT Name,Phone FROM Account WHERE (Name='SFDC Computing' AND NumberOfEmployees>25)
+
+SELECT Name,Phone FROM Account WHERE (Name='SFDC Computing' OR (NumberOfEmployees>25 AND BillingCity='Los Angeles'))
+
+
+WHERE Name LIKE 'SFDC%' is same as WHERE Name='SFDC Computing'
+
+
+
+
+
+SELECT Name,Phone FROM Account ORDER BY Name is same as SELECT Name,Phone FROM Account ORDER BY Name ASC( alphabetical order, specified as ASC(Ascending Order)  )
+
+
+SELECT Name,Phone FROM Account ORDER BY Name ASC
+
+
+
+SELECT Name,Phone FROM Account ORDER BY Name DESC(order name by descending order)
+
+
+
+Account oneAccountOnly = [SELECT Name,Phone FROM Account LIMIT 1];
+
+
+
+SELECT Name,Phone FROM Account 
+                   WHERE (Name = 'SFDC Computing' AND NumberOfEmployees>25)
+                   ORDER BY Name
+                   LIMIT 10
+
+
+
+
+
+
+Account[] accts = [SELECT Name,Phone FROM Account 
+                   WHERE (Name='SFDC Computing' AND NumberOfEmployees>25)
+                   ORDER BY Name
+                   LIMIT 10];
+System.debug(accts.size() + ' account(s) returned.');
+// Write all account array info
+System.debug(accts);
+
+
+
+
+
+Account[] accts = [SELECT Name,Phone FROM Account 
+                   WHERE (Name='SFDC Computing' AND NumberOfEmployees>25)
+                   ORDER BY Name
+                   LIMIT 10];
+System.debug(accts.size() + ' account(s) returned.');
+// Write all account array info
+System.debug('Only ' +accts.size()+ ' account is matching for the combined conditions provided');
+
+
+
+
+String targetDepartment = 'Wingo';
+Contact[] techContacts = [SELECT FirstName,LastName 
+                          FROM Contact WHERE Department=:targetDepartment];
+
+
+
+
+
+
+
+
+
+ SELECT Name, (SELECT LastName FROM Contacts) FROM Account WHERE Name = 'SFDC Computing'
+
+
+inner query:-
+ SELECT Name, (SELECT FirstName,LastName FROM Contacts) FROM Account WHERE Name = 'SFDC Computing'
+
+
+embeds the example SOQL query in Apex :-
+ Account[] acctsWithContacts = [SELECT Name, (SELECT FirstName,LastName FROM Contacts)
+                               FROM Account 
+                               WHERE Name = 'SFDC Computing'];
+// Get child records
+Contact[] cts = acctsWithContacts[0].Contacts;
+System.debug('Name of first associated contact: ' 
+             + cts[0].FirstName + ', ' + cts[0].LastName);
+
+
+
+
+
+
+
+ Contact[] cts = [SELECT Account.Name FROM Contact 
+                 WHERE FirstName = 'Carol' AND LastName='Ruiz'];
+Contact carol = cts[0];
+String acctName = carol.Account.Name;
+System.debug('Carol\'s account name is ' + acctName);            
+
+
+
+for (variable : [soql_query]) {
+    code_block
+}
+
+
+
+for (variable_list : [soql_query]) {
+    code_block
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+insert new Account[]{new Account(Name = 'for loop 1'), 
+                     new Account(Name = 'for loop 2'), 
+                     new Account(Name = 'for loop 3')};
+// The sObject list format executes the for loop once per returned batch
+// of records
+Integer i=0;
+Integer j=0;
+for (Account[] tmp : [SELECT Id FROM Account WHERE Name LIKE 'for loop _']) {
+    j = tmp.size();
+    i++;
+}
+System.assertEquals(3, j); // The list should have contained the three accounts
+                       // named 'yyy'
+System.assertEquals(1, i); // Since a single batch can hold up to 200 records and,
+                       // only three records should have been returned, the 
+                       // loop should have executed only once
+
+
+
+
+
+challenge of soql queries:-
+
+Create an Apex class that returns contacts based on incoming parameters.
+For this challenge, you will need to create a class that has a method accepting two strings. The method searches for contacts that have a last name matching the first string and a mailing postal code matching the second. It gets the ID and Name of those contacts and returns them.
+The Apex class must be called ContactSearch and be in the public scope
+The Apex class must have a public static method called searchForContacts
+The method must accept two incoming strings as parameters
+The method should then find any contact that has a last name matching the first string, and mailing postal code (API name: MailingPostalCode) matching the second string
+The method should finally return a list of Contact records of type List that includes the ID and Name fields
+
+
+public class ContactSearch {
+    public static  List<Contact> searchForContacts(String lastname,String mailingpostalcode ){
+       List<Contact> ContactList = [SELECT Id,Name FROM Contact
+                                          WHERE LastName = :lastname AND MailingPostalCode  = :mailingpostalcode];
+        return ContactList;
+        
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+5)SOSL QUERIES:-
+
+List<List<SObject>> searchList = [FIND 'SFDC' IN ALL FIELDS 
+                                      RETURNING Account(Name), Contact(FirstName,LastName)];
+
+
+
+
+
+// Add account and related contact
+Account acct = new Account(
+    Name='SFDC Computing',
+    Phone='(415)555-1212',
+    NumberOfEmployees=50,
+    BillingCity='San Francisco');
+insert acct;
+// Once the account is inserted, the sObject will be 
+// populated with an ID.
+// Get this ID.
+ID acctID = acct.ID;
+// Add a contact to this account.
+Contact con = new Contact(
+    FirstName='Carol',
+    LastName='Ruiz',
+    Phone='(415)555-1212',
+    Department='Wingo',
+    AccountId=acctID);
+insert con;
+// Add account with no contact
+Account acct2 = new Account(
+    Name='The SFDC Query Man',
+    Phone='(310)555-1213',
+    NumberOfEmployees=50,
+    BillingCity='Los Angeles',
+    Description='Expert in wing technologies.');
+insert acct2;
+
+
+
+
+
+FIND {Wingo} IN ALL FIELDS RETURNING Account(Name), Contact(FirstName,LastName,Department)
+
+
+
+
+
+
+This is the syntax of a basic SOSL query in Apex: 
+
+FIND 'SearchQuery' [IN SearchGroup] [RETURNING ObjectsAndFields]
+
+
+
+
+Remember that in the Query Editor and API, the syntax is slightly different:
+
+FIND {SearchQuery} [IN SearchGroup] [RETURNING ObjectsAndFields]
+
+
+
+
+
+
+
+
+
+
+String soslFindClause = 'Wingo OR SFDC';
+List<List<sObject>> searchList = [FIND :soslFindClause IN ALL FIELDS
+                    RETURNING Account(Name),Contact(FirstName,LastName,Department)];
+Account[] searchAccounts = (Account[])searchList[0];
+Contact[] searchContacts = (Contact[])searchList[1];
+System.debug('Found the following accounts.');
+for (Account a : searchAccounts) {
+    System.debug(a.Name);
+}
+System.debug('Found the following contacts.');
+for (Contact c : searchContacts) {
+    System.debug(c.LastName + ', ' + c.FirstName);
+}
+
+
+
+
+RETURNING Account(Name, Industry WHERE Industry='Apparel').
+
+
+
+RETURNING Account(Name, Industry ORDER BY Name)
+
+
+
+
+RETURNING Account(Name, Industry LIMIT 10)
+
+
+
+
+
+
+Challenge:-
+
+Create an Apex class that returns both contacts and leads based on a parameter.
+To pass this challenge, create an Apex class that returns both contacts and leads that have first or last name matching the incoming parameter.
+The Apex class must be called ContactAndLeadSearch and be in the public scope
+The Apex class must have a public static method called searchContactsAndLeads
+The method must accept an incoming string as a parameter
+The method should then find any contact or lead that matches the string as part of either the first or last name
+The method should finally use a return type of List<List< sObject>>
+NOTE: Because SOSL indexes data for searching, you must create a Contact record and Lead record before checking this challenge. Both records must have the last name Smith. The challenge uses these records for the SOSL search
+
+
+
+
+
+public class LeadHandler {
+ public static Lead insertNewLead(String firstname,String lastname,String company,String leadstatus){
+         Lead lead= new Lead(FirstName=firstname,LastName=lastname,Company=company,Status=leadstatus);
+     
+     insert lead;
+     
+     return lead;
+ }
+}
+
+
+
+
+LeadHandler.insertNewLead('Jimmy','Smith','Jhonsons Group','Closed-Converted');
+
+
+
+
+public class ContactAndLeadSearch {
+    
+    public static List<List<sObject>> searchContactsAndLeads(String lastname){
+        
+        String soslFindClause = 'Smith';
+List<List<sObject>> searchList = [FIND :soslFindClause IN ALL FIELDS
+                    RETURNING Contact(LastName),Lead(LastName)];
+    Contact[] searchContacts = (Contact[])searchList[0];
+    Lead[] searchLeads = (Lead[])searchList[1];
+System.debug('Found the following contacts.');
+for ( Contact a : searchContacts) {
+    System.debug(a.LastName);
+}
+System.debug('Found the following leads.');
+    for (Lead c : searchLeads) {
+    System.debug(c.LastName );
+        
+        
+}
+        return searchList;
+    }
+    
+
+}
+
+
+
+ContactAndLeadSearch.searchContactsAndLeads('Smith');
+
+
+
+
+
+
+
+
+
+
+Apex Triggers :-
+Get Started with Apex Triggers
+
+
+Trigger Syntax:-
+
+trigger TriggerName on ObjectName (trigger_events) {
+   code_block
+}
+
+
+
+
+
+
+The events you can specify are:
+before insert
+before update
+before delete
+after insert
+after update
+after delete
+after undelete
+
+
+
+
+
+
+
+
+trigger HelloWorldTrigger on Account (before insert) {
+	System.debug('Hello World!');
+}
+
+
+
+
+
+Account a = new Account(Name='Test Trigger');
+insert a;
+
+
+
+
+
+trigger HelloWorldTrigger on Account (before insert) {
+    for(Account a : Trigger.new) {
+        a.Description = 'New description';
+    }   
+}
+
+
+
+
+
+
+
+
+
+
+
+trigger ContextExampleTrigger on Account (before insert, after insert, after delete) {
+    if (Trigger.isInsert) {
+        if (Trigger.isBefore) {
+            // Process before insert
+        } else if (Trigger.isAfter) {
+            // Process after insert
+        }        
+    }
+    else if (Trigger.isDelete) {
+        // Process after delete
+    }
+}
+
+
+
+
+trigger ExampleTrigger on Contact (after insert, after delete) {
+    if (Trigger.isInsert) {
+        Integer recordCount = Trigger.new.size();
+        // Call a utility method from another class
+        EmailManager.sendMail('Your email address', 'Trailhead Trigger Tutorial', 
+                    recordCount + ' contact(s) were inserted.');
+    }
+    else if (Trigger.isDelete) {
+        // Process after delete
+    }
+}
+
+
+Contact c = new Contact(LastName='Test Contact');
+insert c;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+trigger AddRelatedRecord on Account(after insert, after update) {
+    List<Opportunity> oppList = new List<Opportunity>();
+    // Get the related opportunities for the accounts in this trigger
+    Map<Id,Account> acctsWithOpps = new Map<Id,Account>(
+        [SELECT Id,(SELECT Id FROM Opportunities) FROM Account WHERE Id IN :Trigger.new]);
+    // Add an opportunity for each account if it doesn't already have one.
+    // Iterate through each account.
+    for(Account a : Trigger.new) {
+        System.debug('acctsWithOpps.get(a.Id).Opportunities.size()=' + acctsWithOpps.get(a.Id).Opportunities.size());
+        // Check if the account already has a related opportunity.
+        if (acctsWithOpps.get(a.Id).Opportunities.size() == 0) {
+            // If it doesn't, add a default opportunity
+            oppList.add(new Opportunity(Name=a.Name + ' Opportunity',
+                                       StageName='Prospecting',
+                                       CloseDate=System.today().addMonths(1),
+                                       AccountId=a.Id));
+        }           
+    }
+    if (oppList.size() > 0) {
+        insert oppList;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+trigger AccountDeletion on Account (before delete) {
+    // Prevent the deletion of accounts if they have related opportunities.
+    for (Account a : [SELECT Id FROM Account
+                     WHERE Id IN (SELECT AccountId FROM Opportunity) AND
+                     Id IN :Trigger.old]) {
+        Trigger.oldMap.get(a.Id).addError(
+            'Cannot delete account with related opportunities.');
+    }
+}
+
+
+
+
+
+
+
+public class CalloutClass {
+    @future(callout=true)
+    public static void makeCallout() {
+        HttpRequest request = new HttpRequest();
+        // Set the endpoint URL.
+        String endpoint = 'http://yourHost/yourService';
+        request.setEndPoint(endpoint);
+        // Set the HTTP verb to GET.
+        request.setMethod('GET');
+        // Send the HTTP request and get the response.
+        HttpResponse response = new HTTP().send(request);
+    }
+}
+
+
+trigger CalloutTrigger on Account (before insert, before update) {
+    CalloutClass.makeCallout();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+YOUR CHALLENGE:-
+Create an Apex trigger
+Create an Apex trigger that sets an account’s Shipping Postal Code to match the Billing Postal Code if the Match Billing Address option is selected. Fire the trigger before inserting an account or updating an account.
+
+Pre-Work:
+Add a checkbox field to the Account object:
+
+Field Label: Match Billing Address
+Field Name: Match_Billing_Address
+Note: The resulting API Name should be Match_Billing_Address__c.
+Create an Apex trigger:
+Name: AccountAddressTrigger
+Object: Account
+Events: before insert and before update
+Condition: Match Billing Address is true
+Operation: set the Shipping Postal Code to match the Billing Postal Code
+
+
+
+
+trigger AccountAddressTrigger on Account (before insert,before update) {
+    for(Account acc:Trigger.new){
+        if(acc.Match_Billing_Address__c==true && acc.BillingPostalCode!=null){
+            acc.ShippingPostalCode=acc.BillingPostalCode;
+            
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+Bulk Apex Triggers:-
+
+trigger MyTriggerNotBulk on Account(before insert) {
+    Account a = Trigger.new[0];
+    a.Description = 'New description';
+}
+
+
+
+
+trigger MyTriggerBulk on Account(before insert) {
+    for(Account a : Trigger.new) {
+        a.Description = 'New description';
+    }
+}
+
+
+
+
+
+
+
+
+
+trigger SoqlTriggerNotBulk on Account(after update) {   
+    for(Account a : Trigger.new) {
+        // Get child records for each account
+        // Inefficient SOQL query as it runs once for each account!
+        Opportunity[] opps = [SELECT Id,Name,CloseDate 
+                             FROM Opportunity WHERE AccountId=:a.Id];
+        // Do some other processing
+    }
+}
+
+
+
+
+
+trigger SoqlTriggerBulk on Account(after update) {  
+    // Perform SOQL query once.    
+    // Get the accounts and their related opportunities.
+    List<Account> acctsWithOpps = 
+        [SELECT Id,(SELECT Id,Name,CloseDate FROM Opportunities) 
+         FROM Account WHERE Id IN :Trigger.new];
+    // Iterate over the returned accounts    
+    for(Account a : acctsWithOpps) { 
+        Opportunity[] relatedOpps = a.Opportunities;  
+        // Do some other processing
+    }
+}
+
+
+
+
+trigger SoqlTriggerBulk on Account(after update) {  
+    // Perform SOQL query once.    
+    // Get the related opportunities for the accounts in this trigger.
+    List<Opportunity> relatedOpps = [SELECT Id,Name,CloseDate FROM Opportunity
+        WHERE AccountId IN :Trigger.new];
+    // Iterate over the related opportunities    
+    for(Opportunity opp : relatedOpps) { 
+        // Do some other processing
+    }
+}
+
+
+
+
+
+
+trigger SoqlTriggerBulk on Account(after update) {  
+    // Perform SOQL query once.    
+    // Get the related opportunities for the accounts in this trigger,
+    // and iterate over those records.
+    for(Opportunity opp : [SELECT Id,Name,CloseDate FROM Opportunity
+        WHERE AccountId IN :Trigger.new]) {
+        // Do some other processing
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+trigger DmlTriggerNotBulk on Account(after update) {   
+    // Get the related opportunities for the accounts in this trigger.        
+    List<Opportunity> relatedOpps = [SELECT Id,Name,Probability FROM Opportunity
+        WHERE AccountId IN :Trigger.new];          
+    // Iterate over the related opportunities
+    for(Opportunity opp : relatedOpps) {      
+        // Update the description when probability is greater 
+        // than 50% but less than 100% 
+        if ((opp.Probability >= 50) && (opp.Probability < 100)) {
+            opp.Description = 'New description for opportunity.';
+            // Update once for each opportunity -- not efficient!
+            update opp;
+        }
+    }    
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+List<Account> toProcess = null;
+switch on Trigger.operationType {
+    when AFTER_INSERT {
+        // do stuff
+    }
+    when AFTER_UPDATE {
+        // do stuff
+    }
+}
+
+
+
+
+when AFTER_INSERT {
+     toProcess = Trigger.New;
+}
+
+
+
+
+when AFTER_UPDATE {
+     toProcess = [SELECT Id,Name FROM Account
+                  WHERE Id IN :Trigger.New AND
+                  Id NOT IN (SELECT AccountId FROM Opportunity WHERE AccountId in :Trigger.New)];
+}
+
+
+
+
+
+trigger DmlTriggerBulk on Account(after update) {   
+    // Get the related opportunities for the accounts in this trigger.        
+    List<Opportunity> relatedOpps = [SELECT Id,Name,Probability FROM Opportunity
+        WHERE AccountId IN :Trigger.new];
+    List<Opportunity> oppsToUpdate = new List<Opportunity>();
+    // Iterate over the related opportunities
+    for(Opportunity opp : relatedOpps) {      
+        // Update the description when probability is greater 
+        // than 50% but less than 100% 
+        if ((opp.Probability >= 50) && (opp.Probability < 100)) {
+            opp.Description = 'New description for opportunity.';
+            oppsToUpdate.add(opp);
+        }
+    }
+    // Perform DML on a collection
+    update oppsToUpdate;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+trigger AddRelatedRecord on Account(after insert, after update) {
+    List<Opportunity> oppList = new List<Opportunity>();
+    // Add an opportunity for each account if it doesn't already have one.
+    // Iterate over accounts that are in this trigger but that don't have opportunities.
+    List<Account> toProcess = null;
+    switch on Trigger.operationType {
+        when AFTER_INSERT {
+        // All inserted Accounts will need the Opportunity, so there is no need to perform the query
+            toProcess = Trigger.New;
+        }
+        when AFTER_UPDATE {
+            toProcess = [SELECT Id,Name FROM Account
+                         WHERE Id IN :Trigger.New AND
+                         Id NOT IN (SELECT AccountId FROM Opportunity WHERE AccountId in :Trigger.New)];
+        }
+    }
+    for (Account a : toProcess) {
+        // Add a default opportunity for this account
+        oppList.add(new Opportunity(Name=a.Name + ' Opportunity',
+                                    StageName='Prospecting',
+                                    CloseDate=System.today().addMonths(1),
+                                    AccountId=a.Id));
+    }
+    if (oppList.size() > 0) {
+        insert oppList;
+    }
+}
+
+
+
+
+
+
+
+
+
+YOUR CHALLENGE
+Create a Bulk Apex trigger
+Create a bulkified Apex trigger that adds a follow-up task to an opportunity if its stage is Closed Won. Fire the Apex trigger after inserting or updating an opportunity.
+Create an Apex trigger:
+Name: ClosedOpportunityTrigger
+Object: Opportunity
+Events: after insert and after update
+Condition: Stage is Closed Won
+Operation: Create a task:
+Subject: Follow Up Test Task
+WhatId: the opportunity ID (associates the task with the opportunity)
+Bulkify the Apex trigger so that it can insert or update 200 or more opportunities
+
+
+
+
+
+
+
+
+
+
+trigger ClosedOpportunityTrigger on Opportunity (after insert,after update) {
+     List<Task> Tasklist = new List<Task>();
+    
+for(Opportunity opp:[SELECT Id,Name,StageName FROM Opportunity WHERE StageName='Closed Won' AND id IN:Trigger.new]){
+    
+   tasklist.add(new task(Subject='Follow Up Test Task',WhatId=opp.id));
+}
+    if(tasklist.size()>0){
+        insert tasklist;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+this is a code of above challenge by chatgpt:-
+
+
+trigger ClosedOpportunityTrigger on Opportunity (after insert, after update) {
+    List<Task> tasksToInsert = new List<Task>();
+
+    // Iterate through the trigger new opportunities
+    for (Opportunity opp : Trigger.new) {
+        // Check if the stage is Closed Won
+        if (opp.StageName == 'Closed Won') {
+            // Create a new task
+            Task followUpTask = new Task(
+                Subject = 'Follow Up Test Task',
+                WhatId = opp.Id
+            );
+
+            // Add the task to the list
+            tasksToInsert.add(followUpTask);
+        }
+    }
+
+    // Insert tasks in bulk
+    if (!tasksToInsert.isEmpty()) {
+        insert tasksToInsert;
+    }
+}
+
+
+
+
+
+
+Certainly! Below is an example of a bulkified Apex trigger that meets your requirements:
+
+apex
+Copy code
+trigger ClosedOpportunityTrigger on Opportunity (after insert, after update) {
+    List<Task> tasksToInsert = new List<Task>();
+
+    // Iterate through the trigger new opportunities
+    for (Opportunity opp : Trigger.new) {
+        // Check if the stage is Closed Won
+        if (opp.StageName == 'Closed Won') {
+            // Create a new task
+            Task followUpTask = new Task(
+                Subject = 'Follow Up Test Task',
+                WhatId = opp.Id
+            );
+
+            // Add the task to the list
+            tasksToInsert.add(followUpTask);
+        }
+    }
+
+    // Insert tasks in bulk
+    if (!tasksToInsert.isEmpty()) {
+        insert tasksToInsert;
+    }
+}
+Explanation:
+
+The trigger is named ClosedOpportunityTrigger and is set to fire after insert and after update events on the Opportunity object.
+
+The trigger iterates through the list of new opportunities (Trigger.new).
+
+For each Opportunity, it checks if the stage is "Closed Won."
+
+If the stage is "Closed Won," it creates a new Task with the specified Subject and associates it with the Opportunity using the WhatId field.
+
+All the created tasks are added to a list (tasksToInsert).
+
+Finally, if there are tasks in the list, it inserts them in bulk to ensure the trigger is bulkified.
+
+This trigger is bulkified because it works on lists of records and performs DML operations outside the loop, minimizing the number of database operations and improving performance when processing a large number of records.
+
+User
+now write only code without comments
+ChatGPT
+apex
+Copy code
+trigger ClosedOpportunityTrigger on Opportunity (after insert, after update) {
+    List<Task> tasksToInsert = new List<Task>();
+
+    for (Opportunity opp : Trigger.new) {
+        if (opp.StageName == 'Closed Won') {
+            tasksToInsert.add(new Task(
+                Subject = 'Follow Up Test Task',
+                WhatId = opp.Id
+            ));
+        }
+    }
+
+    if (!tasksToInsert.isEmpty()) {
+        insert tasksToInsert;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Apex Testing 
+Get Started with Apex Unit Tests:-
+
+
+
+
+
+
+@isTest static void testName() {
+    // code_block
+}
+
+
+@isTest
+private class MyTestClass {
+    @isTest static void myTest() {
+        // code_block
+    }
+}
+
+
+
+
+
+public class TemperatureConverter {
+    // Takes a Fahrenheit temperature and returns the Celsius equivalent.
+    public static Decimal FahrenheitToCelsius(Decimal fh) {
+        Decimal cs = (fh - 32) * 5/9;
+        return cs.setScale(2);
+    }
+}
+
+
+
+
+
+
+
+
+@isTest
+private class TemperatureConverterTest {
+    @isTest static void testWarmTemp() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(70);
+        System.assertEquals(21.11,celsius);
+    }
+    @isTest static void testFreezingPoint() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(32);
+        System.assertEquals(0,celsius);
+    }
+    @isTest static void testBoilingPoint() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(212);        
+        System.assertEquals(100,celsius,'Boiling point temperature is not expected.');
+    } 
+    @isTest static void testNegativeTemp() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(-10);
+        System.assertEquals(-23.33,celsius);
+    }
+}
+
+
+
+
+    @isTest static void testBoilingPoint() {
+        Decimal celsius = TemperatureConverter.FahrenheitToCelsius(212);        
+        // Simulate failure
+        System.assertEquals(0,celsius,'Boiling point temperature is not expected.');
+    }
+
+
+
+
+
+
+    public class TaskUtil {
+    public static String getTaskPriority(String leadState) {
+        // Validate input
+        if (String.isBlank(leadState) || leadState.length() > 2) {
+            return null;
+        }
+        String taskPriority;
+        if (leadState == 'CA') {
+             taskPriority = 'High'; 
+        } else {
+             taskPriority = 'Normal';
+        }
+        return taskPriority;
+    }
+}
+
+
+
+@isTest
+private class TaskUtilTest {
+    @isTest static void testTaskPriority() {
+        String pri = TaskUtil.getTaskPriority('NY');
+        System.assertEquals('Normal', pri);
+    }
+}
+
+
+
+
+
+@isTest
+private class TaskUtilTest {
+    @isTest static void testTaskPriority() {
+        String pri = TaskUtil.getTaskPriority('NY');
+        System.assertEquals('Normal', pri);
+    }
+    @isTest static void testTaskHighPriority() {
+        String pri = TaskUtil.getTaskPriority('CA');
+        System.assertEquals('High', pri);
+    }
+    @isTest static void testTaskPriorityInvalid() {
+        String pri = TaskUtil.getTaskPriority('Montana');
+        System.assertEquals(null, pri);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+YOUR CHALLENGE
+Create a Unit Test for a Simple Apex Class
+Create and install a simple Apex class to test if a date is within a proper range, and if not, returns a date that occurs at the end of the month within the range. You'll copy the code for the class from GitHub. Then write unit tests that achieve 100% code coverage.
+Create an Apex class:
+Name: VerifyDate
+Code: Copy from GitHub
+Place the unit tests in a separate test class:
+Name: TestVerifyDate
+Goal: 100% code coverage
+Run your test class at least once
+
+
+
+
+
+
+
+public class VerifyDate {
+	
+	//method to handle potential checks against two dates
+	public static Date CheckDates(Date date1, Date date2) {
+		//if date2 is within the next 30 days of date1, use date2.  Otherwise use the end of the month
+		if(DateWithin30Days(date1,date2)) {
+			return date2;
+		} else {
+			return SetEndOfMonthDate(date1);
+		}
+	}
+	
+	//method to check if date2 is within the next 30 days of date1
+	private static Boolean DateWithin30Days(Date date1, Date date2) {
+		//check for date2 being in the past
+        	if( date2 < date1) { return false; }
+        
+        	//check that date2 is within (>=) 30 days of date1
+        	Date date30Days = date1.addDays(30); //create a date 30 days away from date1
+		if( date2 >= date30Days ) { return false; }
+		else { return true; }
+	}
+
+	//method to return the end of the month of a given date
+	private static Date SetEndOfMonthDate(Date date1) {
+		Integer totalDays = Date.daysInMonth(date1.year(), date1.month());
+		Date lastDay = Date.newInstance(date1.year(), date1.month(), totalDays);
+		return lastDay;
+	}
+
+}
+
+
+
+
+@isTest
+public class TestVerifyDate 
+{
+    static testMethod void testMethod1() 
+    {
+        Date d = VerifyDate.CheckDates(System.today(),System.today()+1);
+        Date d1 = VerifyDate.CheckDates(System.today(),System.today()+60);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Apex Testing 
+Test Apex Triggers:-
+
+
+
+@isTest
+private class TestAccountDeletion {
+    @isTest static void TestDeleteAccountWithOneOpportunity() {
+        // Test data setup
+        // Create an account with an opportunity, and then try to delete it
+        Account acct = new Account(Name='Test Account');
+        insert acct;
+        Opportunity opp = new Opportunity(Name=acct.Name + ' Opportunity',
+                                       StageName='Prospecting',
+                                       CloseDate=System.today().addMonths(1),
+                                       AccountId=acct.Id);
+        insert opp;
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(acct, false);
+        Test.stopTest();
+        // Verify 
+        // In this case the deletion should have been stopped by the trigger,
+        // so verify that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('Cannot delete account with related opportunities.',
+                             result.getErrors()[0].getMessage());
+    }
+}
+
+
+
+
+
+
+
+
+
+
+YOUR CHALLENGE
+Create a Unit Test for a Simple Apex Trigger
+Create and install a simple Apex trigger which blocks inserts and updates to any contact with a last name of 'INVALIDNAME'. You'll copy the code for the class from GitHub. Then write unit tests that achieve 100% code coverage.
+Create an Apex trigger on the Contact object
+Name: RestrictContactByName
+Code: Copy from GitHub
+Place the unit tests in a separate test class
+Name: TestRestrictContactByName
+Goal: 100% test coverage
+Run your test class at least once
+
+
+@isTest
+private class TestRestrictContactByName {
+
+    static testMethod void  metodoTest() 
+    {
+    
+        List<Contact> listContact= new List<Contact>();
+        Contact c1 = new Contact(FirstName='Francesco', LastName='Riggio' , email='Test@test.com');
+        Contact c2 = new Contact(FirstName='Francesco1', LastName = 'INVALIDNAME',email='Test@test.com');
+        listContact.add(c1);
+        listContact.add(c2);
+        
+        Test.startTest();
+            try
+            {
+                insert listContact;
+            }
+            catch(Exception ee)
+            {
+            }
+        
+        Test.stopTest();       
+    }  
+}
+
+
+
+
+
+
+
+
+
+
+Apex Testing 
+Create Test Data for Apex Tests:-
+
+@isTest
+public class TestDataFactory {
+    public static List<Account> createAccountsWithOpps(Integer numAccts, Integer numOppsPerAcct) {
+        List<Account> accts = new List<Account>();
+        for(Integer i=0;i<numAccts;i++) {
+            Account a = new Account(Name='TestAccount' + i);
+            accts.add(a);
+        }
+        insert accts;
+        List<Opportunity> opps = new List<Opportunity>();
+        for (Integer j=0;j<numAccts;j++) {
+            Account acct = accts[j];
+            // For each account just inserted, add opportunities
+            for (Integer k=0;k<numOppsPerAcct;k++) {
+                opps.add(new Opportunity(Name=acct.Name + ' Opportunity ' + k,
+                                       StageName='Prospecting',
+                                       CloseDate=System.today().addMonths(1),
+                                       AccountId=acct.Id));
+            }
+        }
+        // Insert all opportunities for all accounts.
+        insert opps;
+        return accts;
+    }
+}
+
+
+
+
+
+
+
+@isTest
+private class TestAccountDeletion {
+    @isTest static void TestDeleteAccountWithOneOpportunity() {
+        // Test data setup
+        // Create one account with one opportunity by calling a utility method
+        Account[] accts = TestDataFactory.createAccountsWithOpps(1,1);
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(accts[0], false);
+        Test.stopTest();
+        // Verify that the deletion should have been stopped by the trigger,
+        // so check that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('Cannot delete account with related opportunities.',
+                             result.getErrors()[0].getMessage());
+    }        
+}
+
+
+
+
+
+
+
+
+@isTest
+private class TestAccountDeletion {
+    @isTest static void TestDeleteAccountWithOneOpportunity() {
+        // Test data setup
+        // Create one account with one opportunity by calling a utility method
+        Account[] accts = TestDataFactory.createAccountsWithOpps(1,1);
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(accts[0], false);
+        Test.stopTest();
+        // Verify that the deletion should have been stopped by the trigger,
+        // so check that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('Cannot delete account with related opportunities.',
+                             result.getErrors()[0].getMessage());
+    }
+    @isTest static void TestDeleteAccountWithNoOpportunities() {
+        // Test data setup
+        // Create one account with no opportunities by calling a utility method
+        Account[] accts = TestDataFactory.createAccountsWithOpps(1,0);
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(accts[0], false);
+        Test.stopTest();
+        // Verify that the deletion was successful
+        System.assert(result.isSuccess());
+    }
+    @isTest static void TestDeleteBulkAccountsWithOneOpportunity() {
+        // Test data setup
+        // Create accounts with one opportunity each by calling a utility method
+        Account[] accts = TestDataFactory.createAccountsWithOpps(200,1);
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult[] results = Database.delete(accts, false);
+        Test.stopTest();
+        // Verify for each record.
+        // In this case the deletion should have been stopped by the trigger,
+        // so check that we got back an error.
+        for(Database.DeleteResult dr : results) {
+            System.assert(!dr.isSuccess());
+            System.assert(dr.getErrors().size() > 0);
+            System.assertEquals('Cannot delete account with related opportunities.',
+                                 dr.getErrors()[0].getMessage());
+        }
+    }
+    @isTest static void TestDeleteBulkAccountsWithNoOpportunities() {
+        // Test data setup
+        // Create accounts with no opportunities by calling a utility method
+        Account[] accts = TestDataFactory.createAccountsWithOpps(200,0);
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult[] results = Database.delete(accts, false);
+        Test.stopTest();
+        // For each record, verify that the deletion was successful
+        for(Database.DeleteResult dr : results) {
+            System.assert(dr.isSuccess());
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+YOUR CHALLENGE
+Create a Contact Test Factory
+Create an Apex class that returns a list of contacts based on two incoming parameters: the number of contacts to generate and the last name. Do not insert the generated contact records into the database.
+
+NOTE: For the purposes of verifying this hands-on challenge, don't specify the @isTest annotation for either the class or the method, even though it's usually required.
+Create an Apex class in the public scope
+Name: RandomContactFactory (without the @isTest annotation)
+Use a Public Static Method to consistently generate contacts with unique first names based on the iterated number in the format Test 1, Test 2 and so on.
+Method Name: generateRandomContacts (without the @isTest annotation)
+Parameter 1: An integer that controls the number of contacts being generated with unique first names
+Parameter 2: A string containing the last name of the contacts
+Return Type: List < Contact >
+
+
+
+
+
+
+
+
+//my code
+public class RandomContactFactory {
+public static List<Contact> generateRandomContacts(Integer numCnts, String lastNames) {
+    
+    
+      List<Contact> contacts = new List<Contact>();
+     for(Integer i=0;i<numCnts;i++) {
+            Contact c = new Contact(FirstName='Test' + i);
+            contacts.add(c);
+        }
+        
+    
+    return contacts;
+    
+}
+    
+}
+
+
+
+
+
+/* youtube code
+ 1.randomcontactfactory
+************************
+//@isTest
+public class RandomContactFactory {
+    public static List<Contact> generateRandomContacts(Integer numContactsToGenerate, String FName) {
+        List<Contact> contactList = new List<Contact>();
+        
+    for(Integer i=0;i<numContactsToGenerate;i++) {
+            Contact c = new Contact(FirstName=FName + ' ' + i, LastName = 'Contact '+i);
+            contactList.add(c);
+            System.debug(c);
+        }
+        //insert contactList;
+        System.debug(contactList.size());
+        return contactList;
+    }
+
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Asynchronous Apex 
+Use Future Methods:-
+
+
+public class SomeClass {
+  @future
+  public static void someFutureMethod(List<Id> recordIds) {
+    List<Account> accounts = [Select Id, Name from Account Where Id IN :recordIds];
+    // process account records to do awesome stuff
+  }
+}
+
+
+
+
+
+
+
+public class SMSUtils {
+    // Call async from triggers, etc, where callouts are not permitted.
+    @future(callout=true)
+    public static void sendSMSAsync(String fromNbr, String toNbr, String m) {
+        String results = sendSMS(fromNbr, toNbr, m);
+        System.debug(results);
+    }
+    // Call from controllers, etc, for immediate processing
+    public static String sendSMS(String fromNbr, String toNbr, String m) {
+        // Calling 'send' will result in a callout
+        String results = SmsMessage.send(fromNbr, toNbr, m);
+        insert new SMS_Log__c(to__c=toNbr, from__c=fromNbr, msg__c=results);
+        return results;
+    }
+}
+
+
+
+
+
+
+
+@isTest
+public class SMSCalloutMock implements HttpCalloutMock {
+    public HttpResponse respond(HttpRequest req) {
+        // Create a fake response
+        HttpResponse res = new HttpResponse();
+        res.setHeader('Content-Type', 'application/json');
+        res.setBody('{"status":"success"}');
+        res.setStatusCode(200);
+        return res;
+    }
+}
+
+
+
+
+@IsTest
+private class Test_SMSUtils {
+  @IsTest
+  private static void testSendSms() {
+    Test.setMock(HttpCalloutMock.class, new SMSCalloutMock());
+    Test.startTest();
+      SMSUtils.sendSMSAsync('111', '222', 'Greetings!');
+    Test.stopTest();
+    // runs callout and check results
+    List<SMS_Log__c> logs = [select msg__c from SMS_Log__c];
+    System.assertEquals(1, logs.size());
+    System.assertEquals('success', logs[0].msg__c);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+trigger RestrictContactByName on Contact (before insert, before update) {
+	
+	//check contacts prior to insert or update for invalid data
+	For (Contact c : Trigger.New) {
+		if(c.LastName == 'INVALIDNAME') {	//invalidname is invalid
+			c.AddError('The Last Name "'+c.LastName+'" is not allowed for DML');
+		}
+
+	}
+
+
+
+}
+
+
+
+
+
+
+GET READY
+You’ll be completing this unit in your own hands-on org. Click Launch to get started, or click the name of your org to choose a different one.
+
+YOUR CHALLENGE
+Create an Apex class that uses the @future annotation to update Account records.
+Create an Apex class with a future method that accepts a List of Account IDs and updates a custom field on the Account object with the number of contacts associated to the Account. Write unit tests that achieve 100% code coverage for the class. Every hands-on challenge in this module asks you to create a test class.
+Create a field on the Account object:
+Label: Number Of Contacts
+Name: Number_Of_Contacts
+Type: Number
+This field will hold the total number of Contacts for the Account
+Create an Apex class:
+Name: AccountProcessor
+Method name: countContacts
+The method must accept a List of Account IDs
+The method must use the @future annotation
+The method counts the number of Contact records associated to each Account ID passed to the method and updates the 'Number_Of_Contacts__c' field with this value
+Create an Apex test class:
+Name: AccountProcessorTest
+The unit tests must cover all lines of code included in the AccountProcessor class, resulting in 100% code coverage.
+Before verifying this challenge, run your test class at least once using the Developer Console Run All feature
+
+
+
+
+
+
+
+
+
+
+
+public class AccountProcessor {
+    @future
+    public static void countContacts(List<Id> accountid){
+        list<Account> acc=[Select Id,Name from Account WHERE Id IN:accountid];
+         List<Account> updatedAccounts = new List<Account>();
+        for(Account a:acc){
+            a.Number_of_Contacts__c=[Select count() from Contact Where AccountId =: a.Id];
+              System.debug('No Of Contacts = ' + a.Number_of_Contacts__c);
+            updatedAccounts.add(a);
+        }
+         update updatedAccounts;
+    }
+
+}
+
+
+
+
+@isTest
+public class AccountProcessorTest {
+    @isTest
+    public static void testNoOfContacts(){
+        Account a = new Account();
+        a.Name = 'Test Account';
+        Insert a;
+        
+        Contact c = new Contact();
+        c.FirstName = 'Bob';
+        c.LastName =  'Willie';
+        c.AccountId = a.Id;
+        
+        Contact c2 = new Contact();
+        c2.FirstName = 'Tom';
+        c2.LastName = 'Cruise';
+        c2.AccountId = a.Id;
+        
+        List<Id> acctIds = new List<Id>();
+        acctIds.add(a.Id);
+        
+        Test.startTest();
+        AccountProcessor.countContacts(acctIds);
+        Test.stopTest();
+    }
+
+}
